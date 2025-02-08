@@ -6,10 +6,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features", // Path to your feature files
-        glue = "stepDefinitions",        // Package name where step definitions are located
-        plugin = {"pretty", "html:target/cucumber-reports.html"}, // Report plugins
-        monochrome = true                // Makes console output readable
+        features = "src/test/resources/features",
+        // Package name where step definitions are located
+        glue = "stepDefinitions",
+        plugin = {"pretty", "html:target/cucumber-reports.html"},
+        monochrome = true
 )
 
 public class CucumberIntegrationTest {
