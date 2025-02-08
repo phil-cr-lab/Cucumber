@@ -38,7 +38,7 @@ public class SignupLoginLogout_Steps {
     @Before("@signup")
     public static void cleanUpTestData() {
         try {
-            Path filePath = Path.of("C:\\Projects\\Cucumber\\temp_user_data.json");
+            Path filePath = Path.of("temp_user_data.json");
             if (Files.exists(filePath) && !isTestDataCleaned) {
                 Files.delete(filePath);
                 isTestDataCleaned = true;
@@ -50,7 +50,7 @@ public class SignupLoginLogout_Steps {
 
     @BeforeAll
     public static void beforeAll() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Projects\\Cucumber\\src\\main\\java\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src\\main\\java\\drivers\\chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver = new ChromeDriver(chromeOptions);
@@ -107,7 +107,7 @@ public class SignupLoginLogout_Steps {
     @Then("I see the contact list page")
     public void i_see_the_contact_list_page() {
         WebElement contactListTitle = driver.findElement(By.xpath("//body/descendant::header/h1"));
-        Assert.assertEquals(contactListTitle.getText(), "Contact List");
+        Assert.assertEquals("Contact List", contactListTitle.getText());
         writeUserDataToFile();
 
     }
@@ -120,9 +120,9 @@ public class SignupLoginLogout_Steps {
     @Then("I see the login page")
     public void iSeeTheLoginPage() {
         WebElement contactListAppTitle = driver.findElement(By.xpath("//body/h1"));
-        Assert.assertEquals(contactListAppTitle.getText(), "Contact List App");
+        Assert.assertEquals("Contact List App", contactListAppTitle.getText());
         WebElement loginLabel = driver.findElement(By.xpath("//body/div[@class='main-content']/p"));
-        Assert.assertEquals(loginLabel.getText(), "Log In:");
+        Assert.assertEquals("Log In:", loginLabel.getText());
     }
 
     @When("I enter the email address of the created user")
@@ -142,7 +142,7 @@ public class SignupLoginLogout_Steps {
 
     private void writeUserDataToFile() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter("C:\\Projects\\Cucumber\\temp_user_data.json")) {
+        try (FileWriter writer = new FileWriter("temp_user_data.json")) {
             gson.toJson(user, writer);
         } catch (IOException e) {
             e.printStackTrace();

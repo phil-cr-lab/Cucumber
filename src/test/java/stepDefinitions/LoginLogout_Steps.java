@@ -35,7 +35,7 @@ public class LoginLogout_Steps {
     private static User readTestDataFromFile() {
         Gson gson = new Gson();
         User user = null;
-        try (FileReader reader = new FileReader(Path.of("C:\\Projects\\Cucumber\\temp_user_data.json").toFile())) {
+        try (FileReader reader = new FileReader(Path.of("temp_user_data.json").toFile())) {
             user = gson.fromJson(reader, User.class);
         } catch (IOException e) {
             e.printStackTrace();
