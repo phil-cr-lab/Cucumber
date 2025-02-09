@@ -50,7 +50,7 @@ public class SignupLoginLogout_Steps {
 
     @BeforeAll
     public static void beforeAll() {
-        System.setProperty("webdriver.chrome.driver", "src\\main\\java\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\hostedtoolcache\\windows\\setup-chrome\\chromedriver\\1417813\\x64\\chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver = new ChromeDriver(chromeOptions);
