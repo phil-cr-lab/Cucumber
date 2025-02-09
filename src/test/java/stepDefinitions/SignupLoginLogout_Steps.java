@@ -119,7 +119,7 @@ public class SignupLoginLogout_Steps {
     @Then("I see the login page")
     public void iSeeTheLoginPage() {
         WebElement contactListAppTitle = driver.findElement(By.xpath("//body/h1"));
-        Assert.assertEquals("Contact List Ap6p", contactListAppTitle.getText());
+        Assert.assertEquals("Contact List App", contactListAppTitle.getText());
         WebElement loginLabel = driver.findElement(By.xpath("//body/div[@class='main-content']/p"));
         Assert.assertEquals("Log In:", loginLabel.getText());
     }
