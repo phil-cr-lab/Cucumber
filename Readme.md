@@ -1,5 +1,3 @@
 #Cucumber
 
-Personal project to learn and practice
-
-Java, Selenium, Cucumber, Gherkin
+Personal project to learn and practice automated testing
