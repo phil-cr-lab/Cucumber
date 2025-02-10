@@ -19,9 +19,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Calendar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -74,28 +72,22 @@ public class SignupLoginLogout_Steps {
 
     @When("I enter a first name")
     public void i_enter_a_first_name() {
-        String firstName = user.setFirstName("John");
-        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(firstName);
+        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.getFirstName());
     }
 
     @And("I enter a last name")
     public void i_enter_a_last_name() {
-        String lastName = user.setLastName("Doe");
-        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(lastName);
+        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.getLastName());
     }
 
     @And("I enter an email address")
     public void i_enter_an_email_address() {
-        String email = user.setEmail("johnDoe" + System.currentTimeMillis() + "@test.com");
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(email);
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
     }
 
     @And("I enter a password")
     public void i_enter_a_password() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        java.util.Date now = Calendar.getInstance().getTime();
-        String password = user.setPassword(sdf.format(now));        
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
     }
 
     @And("I click the submit button")
@@ -108,7 +100,6 @@ public class SignupLoginLogout_Steps {
         WebElement contactListTitle = driver.findElement(By.xpath("//body/descendant::header/h1"));
         Assert.assertEquals("Contact List", contactListTitle.getText());
         writeUserDataToFile();
-
     }
 
     @When("I click the logout button")

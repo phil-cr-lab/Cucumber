@@ -1,5 +1,8 @@
 package TestDataConstructs;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class User {
     String firstName;
     String lastName;
@@ -7,10 +10,10 @@ public class User {
     String password;
 
     public User() {
-        this.firstName = null;
-        this.lastName = null;
-        this.email = null;
-        this.password = null;
+        this.firstName = setFirstName();
+        this.lastName = setLastName();
+        this.email = setEmail();
+        this.password = setPassword();
     }
 
     public User(String firstName, String lastName, String email, String password) {
@@ -35,6 +38,17 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public String setFirstName(){ return this.firstName = "John"; }
+
+    public String setLastName(){ return this.lastName = "Doe"; }
+
+    public String setEmail(){ return this.email = "JohnDoe" + System.currentTimeMillis() + "@test.com"; }
+
+    public String setPassword() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        java.util.Date now = Calendar.getInstance().getTime();
+        return this.password = sdf.format(now); }
 
     public String setFirstName(String firstName) {
         return this.firstName = firstName;
