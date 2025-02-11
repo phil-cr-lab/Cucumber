@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.Header;
 
@@ -17,7 +16,4 @@ public class API_GetUser {
         response = request.post("https://thinking-tester-contact-list.herokuapp.com/users");
     }
 
-    @Then("I get the user information")
-    public void iGetTheUserInformation() {
-    }
 }

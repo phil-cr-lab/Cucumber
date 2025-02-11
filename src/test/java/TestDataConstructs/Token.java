@@ -1,19 +1,14 @@
 package TestDataConstructs;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public class Token {
-    String token;
-
-    public Token(String token)
-    {
-        this.token = token;
-    }
-
     public static void writeTokenToFile(String token) {
         //If tests had to store sensitive that way, we would need to encrypt
         //TODO: Encrypt sensitive data
@@ -21,6 +16,17 @@ public class Token {
             writer.write(token);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static String readTokenFromFile() {
+        //If tests had to store sensitive that way, we would need to encrypt
+        //TODO: Decrypt sensitive data
+
+        try {
+            return FileUtils.readFileToString(Path.of("token.txt").toFile(), "UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
