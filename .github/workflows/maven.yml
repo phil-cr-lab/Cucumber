@@ -1,10 +1,10 @@
 # This workflow will test a Cucumber Java project with Maven.
 
-name: Java CI with Maven
+name: Java CI/CD with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "master-fix" ]
   pull_request:
     branches: [ "master" ]
 
