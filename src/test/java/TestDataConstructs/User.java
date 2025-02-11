@@ -1,5 +1,12 @@
 package TestDataConstructs;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -64,6 +71,30 @@ public class User {
 
     public String setPassword(String password) {
         return this.password = password;
+    }
+
+    public static void writeUserDataToFile(User user) {
+        //If tests had to store sensitive that way, we would need to encrypt
+        //TODO: Encrypt sensitive data
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter("temp_user_data.json")) {
+            gson.toJson(user, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static User readTestDataFromFile() {
+        //If tests had to retrieve encrypted sensitive data, we would need to decrypt
+        //TODO: Decrypt sensitive data
+        Gson gson = new Gson();
+        User user = null;
+        try (FileReader reader = new FileReader(Path.of("temp_user_data.json").toFile())) {
+            user = gson.fromJson(reader, User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
 
