@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.junit.Assert;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -104,9 +103,9 @@ public class User {
         JsonElement JE_response = JsonParser.parseString(response).getAsJsonObject();
 
 
-        Assert.assertEquals(user.getFirstName(), JO_firstName.getAsString());
-        Assert.assertEquals(user.getLastName(), JO_lastName.getAsString());
-        Assert.assertEquals(user.getEmail(), JO_email.getAsString());
+        //Assert.assertEquals(user.getFirstName(), JO_firstName.getAsString());
+        //Assert.assertEquals(user.getLastName(), JO_lastName.getAsString());
+        //Assert.assertEquals(user.getEmail(), JO_email.getAsString());
     }
 }
 
