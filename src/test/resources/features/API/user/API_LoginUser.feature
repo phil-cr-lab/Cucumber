@@ -6,5 +6,5 @@ Feature: Login a user using the API
   Scenario: Validate user logging in
     Given The user already exists
     When I send the request to log in
-    Then I receive the user information
+    Then I receive the existing user information
     And I receive a token

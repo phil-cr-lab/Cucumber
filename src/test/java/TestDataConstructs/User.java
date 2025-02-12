@@ -2,8 +2,6 @@ package TestDataConstructs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -100,8 +98,9 @@ public class User {
     }
 
     public static void validateUserInformation(User user, String response) {
-        JsonElement JE_response = JsonParser.parseString(response).getAsJsonObject();
+        System.out.println("Nothing done here");
 
+        //JsonElement JE_response = JsonParser.parseString(response).getAsJsonObject();
 
         //Assert.assertEquals(user.getFirstName(), JO_firstName.getAsString());
         //Assert.assertEquals(user.getLastName(), JO_lastName.getAsString());

@@ -6,5 +6,5 @@ Feature: Add a user using the API
     Given The user to add is new
     And I have a token
     When I send the request to add a new user
-    Then I receive the user information
+    Then I receive the new user information
     And I receive a token

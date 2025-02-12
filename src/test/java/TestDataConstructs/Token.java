@@ -22,7 +22,6 @@ public class Token {
     public static String readTokenFromFile() {
         //If tests had to store sensitive that way, we would need to encrypt
         //TODO: Decrypt sensitive data
-
         try {
             return FileUtils.readFileToString(Path.of("token.txt").toFile(), "UTF-8");
         } catch (IOException e) {
