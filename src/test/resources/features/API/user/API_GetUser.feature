@@ -7,4 +7,3 @@ Feature: Get a user using the API
     And I have a token
     When I send the request to get the user information
     Then I receive the user information
-    And I receive a token

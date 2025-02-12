@@ -91,8 +91,8 @@ public class Common_Steps {
 
     @Then("I receive the user information")
     public void iReceiveTheExistingUserInformation() {
-        Assert.assertEquals(200, response.getStatusCode());
         System.out.println("Response: " + response.asPrettyString());
+        Assert.assertEquals(200, response.getStatusCode());
         User.validateUserInformation(user, response.asString());
     }
 }
