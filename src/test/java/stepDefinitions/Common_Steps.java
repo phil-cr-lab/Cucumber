@@ -1,10 +1,13 @@
 package stepDefinitions;
 
+import TestDataConstructs.Token;
 import TestDataConstructs.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.BeforeAll;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
@@ -29,6 +32,7 @@ public class Common_Steps {
     static String data;
     static RequestSpecification request;
     static Response response;
+    static String token;
 
     @BeforeAll
     public static void beforeAll() {
@@ -60,6 +64,21 @@ public class Common_Steps {
         data = gson.toJson(user);
     }
 
+    @And("I receive a token")
+    public void iReceiveAToken() {
+        System.out.println("I receive token: " + token);
+        JsonObject jsonObject = new Gson().fromJson(response.asString(), JsonObject.class);
+        String token = jsonObject.get("token").getAsString();
+        Token.validateTokenFormat(token);
+        Token.writeTokenToFile(token);
+    }
+
+    @And("I have a token")
+    public void iHaveAtoken() {
+        System.out.println("I have token: " + token);
+        token = Token.readTokenFromFile();
+    }
+
     @Given("I access the user Login Page")
     public void i_access_the_login_page() {
         driver.get("https://thinking-tester-contact-list.herokuapp.com");
@@ -70,5 +89,12 @@ public class Common_Steps {
         WebElement contactListTitle = driver.findElement(By.xpath("//body/descendant::header/h1"));
         Assert.assertEquals("Contact List", contactListTitle.getText());
         User.writeUserDataToFile(user);
+    }
+
+    @Then("I receive the existing user information")
+    public void iReceiveTheExistingUserInformation() {
+        System.out.println("I receive existing user information response: " + response.asPrettyString());
+        Assert.assertEquals(200, response.getStatusCode());
+        User.validateUserInformation(user, response.asString());
     }
 }

@@ -96,5 +96,15 @@ public class User {
         }
         return user;
     }
+
+    public static void validateUserInformation(User user, String response) {
+        System.out.println("Nothing done here");
+
+        //JsonElement JE_response = JsonParser.parseString(response).getAsJsonObject();
+
+        //Assert.assertEquals(user.getFirstName(), JO_firstName.getAsString());
+        //Assert.assertEquals(user.getLastName(), JO_lastName.getAsString());
+        //Assert.assertEquals(user.getEmail(), JO_email.getAsString());
+    }
 }
 

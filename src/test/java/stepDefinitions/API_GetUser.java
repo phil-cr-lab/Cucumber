@@ -1,8 +1,6 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.http.Header;
 
 import static stepDefinitions.Common_Steps.*;
 
@@ -10,14 +8,10 @@ public class API_GetUser {
 
     @When("I send the request to get the user information")
     public void iSendTheRequestToGetTheUserInformation() {
-        Header authorizationHeader = new Header("Authorization", "Bearer{{token}}");
-        request
-                .header(authorizationHeader)
-                .body(data);
-        response = request.post("https://thinking-tester-contact-list.herokuapp.com/users");
+        System.out.println(token);
+        response = request
+                .header("Authorization", "Bearer " + token)
+                .get("https://thinking-tester-contact-list.herokuapp.com/users/me");
     }
 
-    @Then("I get the user information")
-    public void iGetTheUserInformation() {
-    }
 }

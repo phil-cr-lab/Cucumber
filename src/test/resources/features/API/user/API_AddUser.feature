@@ -1,13 +1,10 @@
 @API_addUser
 Feature: Add a user using the API
+#For this feature to work, API_LoginUser.feature must have ran before
 
   Scenario: Validate Addition of new user
-
     Given The user to add is new
-
-      #The token must have been retrieved when logging in an existing user (API_LoginUser.feature)
     And I have a token
-
     When I send the request to add a new user
-    Then I get a response with the new user information
-    And I get a new token
+    Then I receive the new user information
+    And I receive a token
