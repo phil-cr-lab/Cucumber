@@ -20,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -53,6 +55,10 @@ public class Common_Steps {
             SafariOptions safariOptions = new SafariOptions();
             safariOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
             driver = new SafariDriver(safariOptions);
+        } else if (currentOS.contains("nux")) {
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+            driver = new FirefoxDriver(firefoxOptions);
         }
 
         driver.manage().window().maximize();
