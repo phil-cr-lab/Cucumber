@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,29 +8,11 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import static stepDefinitions.Common_Steps.*;
 
-import static stepDefinitions.Common_Steps.driver;
-import static stepDefinitions.Common_Steps.user;
+public class User {
 
-public class SignupLoginLogout_Steps {
-
-    private static boolean isTestDataCleaned = false;
-
-    @Before("@signup")
-    public static void cleanUpTestData() {
-        try {
-            Path filePath = Path.of("temp_user_data.json");
-            if (Files.exists(filePath) && !isTestDataCleaned) {
-                Files.delete(filePath);
-                isTestDataCleaned = true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //UI steps ***********************************************************************************************
 
     @Given("I access the Signup Page")
     public void i_access_the_signup_page() {
@@ -90,4 +71,47 @@ public class SignupLoginLogout_Steps {
     public void i_click_the_login_button() {
         driver.findElement(By.xpath("//button[@id='submit']")).click();
     }
+
+    @And("I enter an existing account email address")
+    public void i_enter_an_existing_account_email_address() {
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+    }
+
+    @And("I enter its associated password")
+    public void i_enter_its_associated_password() {
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+    }
+
+    //API steps ***********************************************************************************************
+
+    @When("I send the request to log in")
+    public void iSendTheRequestToLogIn() {
+        response = request
+                .header("Content-Type", "application/json")
+                .body(data)
+                .post("https://thinking-tester-contact-list.herokuapp.com/users/login");
+    }
+
+    @When("I send the request to get the user information")
+    public void iSendTheRequestToGetTheUserInformation() {
+        response = request
+                .header("Authorization", "Bearer " + token)
+                .get("https://thinking-tester-contact-list.herokuapp.com/users/me");
+    }
+
+    @When("I send the request to add a new user")
+    public void iSendTheRequestToAddANewUser() {
+        response = request
+                .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .body(data)
+                .post("https://thinking-tester-contact-list.herokuapp.com/users");
+    }
+
+    @Then("I receive the new user information")
+    public void iReceiveTheNewUserInformation() {
+        Assert.assertEquals(201, response.getStatusCode());
+        TestDataConstructs.User.validateUserInformation(user, response);
+    }
+
 }

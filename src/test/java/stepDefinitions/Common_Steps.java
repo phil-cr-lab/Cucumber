@@ -66,7 +66,6 @@ public class Common_Steps {
 
     @And("I receive a token")
     public void iReceiveAToken() {
-        System.out.println("I receive token: " + token);
         JsonObject jsonObject = new Gson().fromJson(response.asString(), JsonObject.class);
         String token = jsonObject.get("token").getAsString();
         Token.validateTokenFormat(token);
@@ -75,7 +74,6 @@ public class Common_Steps {
 
     @And("I have a token")
     public void iHaveAtoken() {
-        System.out.println("I have token: " + token);
         token = Token.readTokenFromFile();
     }
 
@@ -93,8 +91,7 @@ public class Common_Steps {
 
     @Then("I receive the existing user information")
     public void iReceiveTheExistingUserInformation() {
-        System.out.println("I receive existing user information response: " + response.asPrettyString());
         Assert.assertEquals(200, response.getStatusCode());
-        User.validateUserInformation(user, response.asString());
+        User.validateUserInformation(user, response);
     }
 }
