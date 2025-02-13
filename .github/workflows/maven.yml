@@ -4,7 +4,7 @@ name: Java CI/CD with Maven
 
 on:
   push:
-    branches: [ "master", "gitHub-Actions-fix" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 

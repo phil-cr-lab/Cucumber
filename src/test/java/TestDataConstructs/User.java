@@ -1,7 +1,8 @@
 package TestDataConstructs;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import io.restassured.response.Response;
+import org.junit.Assert;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class User {
     String firstName;
@@ -54,7 +56,7 @@ public class User {
 
     public String setPassword() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        java.util.Date now = Calendar.getInstance().getTime();
+        Date now = Calendar.getInstance().getTime();
         return this.password = sdf.format(now); }
 
     public String setFirstName(String firstName) {
@@ -97,14 +99,32 @@ public class User {
         return user;
     }
 
-    public static void validateUserInformation(User user, String response) {
-        System.out.println("Nothing done here");
+    public static void validateUserInformation(User user, Response response) {
+        try {
+            JsonElement responseJsonElement = JsonParser.parseString(response.asString());
 
-        //JsonElement JE_response = JsonParser.parseString(response).getAsJsonObject();
+            if (responseJsonElement.isJsonObject()) {
+                JsonObject responseObject = responseJsonElement.getAsJsonObject();
 
-        //Assert.assertEquals(user.getFirstName(), JO_firstName.getAsString());
-        //Assert.assertEquals(user.getLastName(), JO_lastName.getAsString());
-        //Assert.assertEquals(user.getEmail(), JO_email.getAsString());
+                if (responseObject.has("user") && responseObject.get("user").isJsonObject()) {
+                    JsonObject responseUserObject = responseObject.get("user").getAsJsonObject();
+
+                    Assert.assertEquals(user.firstName, responseUserObject.get("firstName").getAsString());
+                    Assert.assertEquals(user.lastName, responseUserObject.get("lastName").getAsString());
+                    Assert.assertEquals(user.email.toLowerCase(), responseUserObject.get("email").getAsString());
+
+                } else {
+                    Assert.assertEquals(user.firstName, responseObject.get("firstName").getAsString());
+                    Assert.assertEquals(user.lastName, responseObject.get("lastName").getAsString());
+                    Assert.assertEquals(user.email.toLowerCase(), responseObject.get("email").getAsString());
+                }
+            } else {
+                Assert.fail("Response is not a JSON object.");
+            }
+
+        } catch (Exception e) { // Catch JsonParseException or other exceptions
+            Assert.fail("Error parsing JSON: " + e.getMessage());
+        }
     }
 }
 
