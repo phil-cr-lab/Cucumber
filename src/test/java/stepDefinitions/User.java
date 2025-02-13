@@ -19,8 +19,15 @@ public class User {
         driver.get("https://thinking-tester-contact-list.herokuapp.com/addUser");
     }
 
+
     @When("I enter a first name")
     public void i_enter_a_first_name() {
+        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.getFirstName());
+    }
+
+    @When("^I enter a firstName (.*)$")
+    public void iEnterAFirstName(String firstName) {
+        user.setFirstName(firstName);
         driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.getFirstName());
     }
 
@@ -29,13 +36,31 @@ public class User {
         driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.getLastName());
     }
 
+    @And("^I enter a lastName (.*)$")
+    public void iEnterALastName(String lastName) {
+        user.setLastName(lastName);
+        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.setLastName());
+    }
+
     @And("I enter an email address")
     public void i_enter_an_email_address() {
         driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
     }
 
+    @And("^I enter an email (.*)$")
+    public void iEnterAnEmail(String email) {
+        user.setEmail(email);
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+    }
+
     @And("I enter a password")
     public void i_enter_a_password() {
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+    }
+
+    @And("^I enter a password (.*)$")
+    public void iEnterAPassword(String password) {
+        user.setPassword(password);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
     }
 
@@ -114,4 +139,21 @@ public class User {
         TestDataConstructs.User.validateUserInformation(user, response);
     }
 
+    @When("I send the request to delete the user")
+    public void iSendTheRequestToDeleteTheUser() {
+        response = request
+                .header("Authorization", "Bearer " + token)
+                .delete("https://thinking-tester-contact-list.herokuapp.com/users/me");
+        System.out.println("Response: " + response.asPrettyString());
+    }
+
+    @Then("I receive an http 200 OK code")
+    public void iReceiveAnHttpOKCode() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @And("I cannot login with this user anymore")
+    public void iCannotLoginWithThisUserAnymore() {
+
+    }
 }
