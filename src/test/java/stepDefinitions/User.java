@@ -49,7 +49,7 @@ public class User {
 
     @And("^I enter an email (.*)$")
     public void iEnterAnEmail(String email) {
-        user.setEmail(email);
+        user.setEmail(email.replace("@", System.currentTimeMillis() + "@"));
         driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
     }
 

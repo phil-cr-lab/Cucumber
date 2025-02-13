@@ -24,7 +24,7 @@ jobs:
     - name: Test with Maven
       run: mvn test
 
-  macintosh-run:
+  Macintosh-Run:
     runs-on: macos-latest
     steps:
       - name: checkout
