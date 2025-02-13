@@ -5,8 +5,8 @@ import TestDataConstructs.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,14 +28,14 @@ import static io.restassured.RestAssured.given;
 public class Common_Steps {
 
     static WebDriver driver;
-    static User user;
+    static User user = new User("", "", "", "");
     static String data;
     static RequestSpecification request;
     static Response response;
     static String token;
 
-    @BeforeAll
-    public static void beforeAll() {
+    @Before
+    public static void before() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver = new ChromeDriver(chromeOptions);
@@ -45,8 +45,8 @@ public class Common_Steps {
         request = given();
     }
 
-    @AfterAll
-    public static void AfterAll() {
+    @After
+    public static void after() {
         driver.quit();
     }
 
@@ -55,6 +55,7 @@ public class Common_Steps {
         user = new User();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         data = gson.toJson(user);
+        User.writeUserDataToFile(user);
     }
 
     @Given("The user already exists")
@@ -67,7 +68,7 @@ public class Common_Steps {
     @And("I receive a token")
     public void iReceiveAToken() {
         JsonObject jsonObject = new Gson().fromJson(response.asString(), JsonObject.class);
-        String token = jsonObject.get("token").getAsString();
+        token = jsonObject.get("token").getAsString();
         Token.validateTokenFormat(token);
         Token.writeTokenToFile(token);
     }
