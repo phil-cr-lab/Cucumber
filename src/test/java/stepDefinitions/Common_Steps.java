@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 import java.time.Duration;
 
@@ -33,12 +36,25 @@ public class Common_Steps {
     static RequestSpecification request;
     static Response response;
     static String token;
+    static String currentOS;
+
+    @BeforeAll
+    public static void beforeAll() {
+        currentOS = System.getProperty("os.name");
+    }
 
     @Before
     public static void before() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        driver = new ChromeDriver(chromeOptions);
+        if (currentOS.contains("Win")) {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+            driver = new ChromeDriver(chromeOptions);
+        } else if (currentOS.contains("Mac")) {
+            SafariOptions safariOptions = new SafariOptions();
+            safariOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+            driver = new SafariDriver(safariOptions);
+        }
+
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 

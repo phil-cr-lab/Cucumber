@@ -144,7 +144,6 @@ public class User {
         response = request
                 .header("Authorization", "Bearer " + token)
                 .delete("https://thinking-tester-contact-list.herokuapp.com/users/me");
-        System.out.println("Response: " + response.asPrettyString());
     }
 
     @Then("I receive an http 200 OK code")
