@@ -77,12 +77,12 @@ public class Common_Steps {
         user = new User();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         data = gson.toJson(user);
-        User.writeUserDataToFile(user);
+        //User.writeUserDataToFile(user);
     }
 
     @Given("The user already exists")
     public void theUserAlreadyExists() {
-        user = User.readTestDataFromFile();
+        //user = User.readTestDataFromFile();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         data = gson.toJson(user);
     }
@@ -110,7 +110,7 @@ public class Common_Steps {
     public void i_see_the_contact_list_page() {
         WebElement contactListTitle = driver.findElement(By.xpath("//body/descendant::header/h1"));
         Assert.assertEquals("Contact List", contactListTitle.getText());
-        User.writeUserDataToFile(user);
+        //User.writeUserDataToFile(user);
     }
 
     @Then("I receive the existing user information")
