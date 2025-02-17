@@ -92,12 +92,13 @@ public class Common_Steps {
         JsonObject jsonObject = new Gson().fromJson(response.asString(), JsonObject.class);
         token = jsonObject.get("token").getAsString();
         Token.validateTokenFormat(token);
-        Token.writeTokenToFile(token);
+        //Token.writeTokenToFile(token);
     }
 
     @And("I have a token")
     public void iHaveAtoken() {
-        token = Token.readTokenFromFile();
+        Token.validateTokenFormat(token);
+        //token = Token.readTokenFromFile();
     }
 
     @Given("I access the user Login Page")
