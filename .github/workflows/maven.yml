@@ -9,8 +9,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  MacIntosh-Run:
-    runs-on: macos-latest
+  Windows-Run:
+    runs-on: windows-latest
 
     steps:
       - name: checkout
