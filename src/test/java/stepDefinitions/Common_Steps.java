@@ -39,6 +39,7 @@ public class Common_Steps {
     static Response response;
     static String token;
     static String currentOS;
+    static boolean hasRunOnce = false;
 
     @BeforeAll
     public static void beforeAll() {
@@ -46,7 +47,7 @@ public class Common_Steps {
     }
 
     @Before
-    public static void before() {
+    public static void before() throws InterruptedException {
         if (currentOS.contains("Win")) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
@@ -55,6 +56,10 @@ public class Common_Steps {
             SafariOptions safariOptions = new SafariOptions();
             safariOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
             driver = new SafariDriver(safariOptions);
+            if (!hasRunOnce) {
+                Thread.sleep(1000);
+                hasRunOnce = true;
+            }
         } else if (currentOS.contains("nux")) {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
             firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
