@@ -22,91 +22,89 @@ public class User {
 
     @When("I enter a first name")
     public void i_enter_a_first_name() {
-        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.getFirstName());
+        driver.findElement(By.xpath("//input[@id=\"firstName\"]")).sendKeys(user.getFirstName());
     }
 
     @When("^I enter a firstName (.*)$")
     public void iEnterAFirstName(String firstName) {
         user.setFirstName(firstName);
-        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.getFirstName());
+        driver.findElement(By.xpath("//input[@id=\"firstName\"]")).sendKeys(user.getFirstName());
     }
 
     @And("I enter a last name")
     public void i_enter_a_last_name() {
-        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.getLastName());
+        driver.findElement(By.xpath("//input[@id=\"lastName\"]")).sendKeys(user.getLastName());
     }
 
     @And("^I enter a lastName (.*)$")
     public void iEnterALastName(String lastName) {
         user.setLastName(lastName);
-        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.setLastName());
+        driver.findElement(By.xpath("//input[@id=\"lastName\"]")).sendKeys(user.setLastName());
     }
 
     @And("I enter an email address")
     public void i_enter_an_email_address() {
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+        driver.findElement(By.xpath("//input[@id=\"email\"]")).sendKeys(user.getEmail());
     }
 
     @And("^I enter an email (.*)$")
     public void iEnterAnEmail(String email) {
-        email = email.replace("@", System.currentTimeMillis() + "@");
-        user.setEmail(email);
-        System.out.println(email);
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+        user.setEmail(email.replace("@", System.currentTimeMillis() + "@"));
+        driver.findElement(By.xpath("//input[@id=\"email\"]")).sendKeys(user.getEmail());
     }
 
     @And("I enter a password")
     public void i_enter_a_password() {
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+        driver.findElement(By.xpath("//input[@id=\"password\"]")).sendKeys(user.getPassword());
     }
 
     @And("^I enter a password (.*)$")
     public void iEnterAPassword(String password) {
         user.setPassword(password);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+        driver.findElement(By.xpath("//input[@id=\"password\"]")).sendKeys(user.getPassword());
     }
 
     @And("I click the submit button")
     public void i_click_the_submit_button() {
-        driver.findElement(By.xpath("//button[@id='submit']")).click();
+        driver.findElement(By.xpath("//button[@id=\"submit\"]")).click();
     }
 
     @When("I click the logout button")
     public void iClickTheLogoutButton() {
-        driver.findElement(By.xpath("//body/descendant::header/button[@id='logout']")).click();
+        driver.findElement(By.xpath("//body/descendant::header/button[@id=\"logout\"]")).click();
     }
 
     @Then("I see the login page")
     public void iSeeTheLoginPage() {
         WebElement contactListAppTitle = driver.findElement(By.xpath("//body/h1"));
         Assert.assertEquals("Contact List App", contactListAppTitle.getText());
-        WebElement loginLabel = driver.findElement(By.xpath("//body/div[@class='main-content']/p"));
+        WebElement loginLabel = driver.findElement(By.xpath("//body/div[@class=\"main-content\"]/p"));
         Assert.assertEquals("Log In:", loginLabel.getText());
     }
 
     @When("I enter the email address of the created user")
     public void i_enter_the_email_address_of_the_created_user() {
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+        driver.findElement(By.xpath("//input[@id=\"email\"]")).sendKeys(user.getEmail());
     }
 
     @And("I enter the password of the created user")
     public void i_enter_the_password_of_the_created_user() {
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+        driver.findElement(By.xpath("//input[@id=\"password\"]")).sendKeys(user.getPassword());
     }
 
     @And("I click the login button")
     public void i_click_the_login_button() {
-        driver.findElement(By.xpath("//button[@id='submit']")).click();
+        driver.findElement(By.xpath("//button[@id=\"submit\"]")).click();
     }
 
     @And("I enter an existing account email address")
     public void i_enter_an_existing_account_email_address() {
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(user.getEmail());
+        driver.findElement(By.xpath("//input[@id=\"email\"]")).sendKeys(user.getEmail());
     }
 
     @And("I enter its associated password")
     public void i_enter_its_associated_password() {
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(user.getPassword());
+        driver.findElement(By.xpath("//input[@id=\"password\"]")).sendKeys(user.getPassword());
     }
 
     //API steps ***********************************************************************************************

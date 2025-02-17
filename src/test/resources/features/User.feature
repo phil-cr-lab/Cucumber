@@ -16,7 +16,7 @@ Feature: UI and API User functionalities (Contact List App : thinking-tester-con
 
     Examples:
       | firstName | lastName | email                     | password    |
-      | John      | Doe      | John.Doe_32@test-mail.com | te@ST#-123! |
+      | John      | Doe      | John.D0e_@test-mail.com | te@ST#-123! |
 
   @UI @Login @Logout
   #This scenario gets the user login credentials from the static variable used during the previous scenario

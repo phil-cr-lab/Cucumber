@@ -20,8 +20,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -39,7 +37,6 @@ public class Common_Steps {
     static Response response;
     static String token;
     static String currentOS;
-    static boolean hasRunOnce = false;
 
     @BeforeAll
     public static void beforeAll() {
@@ -56,18 +53,10 @@ public class Common_Steps {
             SafariOptions safariOptions = new SafariOptions();
             safariOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
             driver = new SafariDriver(safariOptions);
-            if (!hasRunOnce) {
-                Thread.sleep(1000);
-                hasRunOnce = true;
-            }
-        } else if (currentOS.contains("nux")) {
-            FirefoxOptions firefoxOptions = new FirefoxOptions();
-            firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-            driver = new FirefoxDriver(firefoxOptions);
         }
 
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         request = given();
     }
@@ -113,7 +102,7 @@ public class Common_Steps {
 
     @Then("I see the contact list page")
     public void i_see_the_contact_list_page() {
-        WebElement contactListTitle = driver.findElement(By.xpath("//body/descendant::header/h1"));
+        WebElement contactListTitle = driver.findElement(By.xpath("//h1[text()=\"Contact List\"]"));
         Assert.assertEquals("Contact List", contactListTitle.getText());
         //User.writeUserDataToFile(user);
     }
